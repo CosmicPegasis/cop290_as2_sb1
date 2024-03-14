@@ -1,11 +1,14 @@
-import whisper
+from faster_whisper import WhisperModel
 import sys
 
 
 def transcribe_audio(audio_file):
-    model = whisper.load_model("small.en")
-    result = model.transcribe(audio_file)
-    return result["text"]
+    model = WhisperModel("small")
+    segments, _ = model.transcribe(audio_file)
+    s = ""
+    for segment in segments:
+        s += "[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text) + "\n"
+    return s
 
 
 if __name__ == "__main__":
