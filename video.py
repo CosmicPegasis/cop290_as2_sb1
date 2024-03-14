@@ -5,10 +5,7 @@ import os
 
 
 def transcribe_video(video_file):
-    input_file = ffmpeg.input(video_file)
-    input_file.output("audio.mp3", acodec="mp3").run()
-    text = transcribe_audio("audio.mp3")
-    os.remove("audio.mp3")
+    text = transcribe_audio(video_file)
     return text
 
 
